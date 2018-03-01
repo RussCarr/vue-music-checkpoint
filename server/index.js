@@ -1,22 +1,30 @@
-let express = require("express"),
-  bp = require("body-parser"),
-  cors = require("cors"),
-  server = express(),
-  port = 3000;
+var express = require('express')
+var bodyParser = require('body-parser')
+var cors = require('cors')
 
-require("./server-assets/db/mlab-config");
+require('./server-assets/db/mlab-config');
 
+
+//Server Setup
+
+let server = express();
+let port = 3000;
 server.use(cors());
-server.use(bp.json());
-server.use(bp.urlencoded({ extended: true }));
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({ extended: true }));
+//router server setups
 
-//Your routes here
 
+server.get('*', (request, response, next) => {
+  console.log('I am being requested')
+  response.send(request.query);
+  next()
+})
 
-server.use("*", (error, req, res, next) => {
-    res.status(400).send(error);
-  });
-  
-server.listen(port, () => {
-    console.log("the server is running... Port:", port);
-  });
+server.use('*', (err,req,res,next) =>{
+  res.status(400).send(err);
+});
+
+server.listen(port, () =>{
+  console.log('server is now running on port:', port)
+})
