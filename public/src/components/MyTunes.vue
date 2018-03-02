@@ -1,6 +1,7 @@
 <template>
     <div class="my-tunes">
         <h1>List of MyTunes</h1>
+        <p v-for="track in tracks"></p>
     </div>
 </template>
 
@@ -11,7 +12,12 @@ export default {
         return {
             
         }
-    }
+    },
+    computed: {
+      tracks() {
+        return this.$store.state.myTunes
+      },
+    },
 }
 
 </script>

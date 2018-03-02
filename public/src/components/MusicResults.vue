@@ -12,40 +12,32 @@
         </template>
       </div>
     </div>
-   </div>
-
+    <MyTunes></MyTunes>
+  </div>
 </template>
 
 <script>
- 
- export default {
+  import MyTunes from './MyTunes.vue'
+  export default {
     name: 'musicResults',
     data() {
       return {
       }
     },
+    components: {
+      MyTunes
+    },
     computed: {
       artists() {
-
-        console.log('step 5')
         return this.$store.state.results
       },
     },
-    // methods: {
-    //   showDetailz(music){
-    //     console.log('hello')
-    //     this.$store.dispatch('setActiveMusic', music)
-    //   }
-    // },
-    // components: {
-    //   detailz: Detailz
-    // },
   }
 
 </script>
 
 <style>
-  collection{
+  collection {
     display: flex;
     align-self: flex-end;
     justify-content: center;
