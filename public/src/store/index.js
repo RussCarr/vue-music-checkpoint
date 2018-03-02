@@ -6,21 +6,30 @@ vue.use(vuex)
 
 var store = new vuex.Store({
   state: {
-    myTunes: [],
+    myTunes: [
+      {
+        name: 'russ',
+        title: 'someone'
+      }
+    ],
     results: []
   },
   mutations: {
     setResults(state, results){
       state.results = results
+    console.log('Step 3',results)
     }
   },
   actions: {
     getMusicByArtist({commit, dispatch}, artist) {
+      console.log('here',artist)
       var url = '//bcw-getter.herokuapp.com/?url=';
       var url2 = 'https://itunes.apple.com/search?term=' + artist;
       var apiUrl = url + encodeURIComponent(url2);
       $.get(apiUrl).then(data=>{
-        commit('setResults', data)
+        data = JSON.parse(data)
+        commit('setResults', data.results)
+      console.log('step 4')
       })
     },
     getMyTunes({commit, dispatch}){
