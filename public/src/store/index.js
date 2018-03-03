@@ -38,7 +38,7 @@ var store = new vuex.Store({
       console.log('2',test)
       //req returns as res which is songs collection(array)
       var songs = []
-      songs.push(test, {name: "new2"})
+      songs.push(test, {name: "new2",artist: 'asdf',album:'asdf'})
       commit('setMyCollection', songs)
     },
     addToMyTunes({ commit, dispatch }, track) {
