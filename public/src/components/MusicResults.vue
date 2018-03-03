@@ -12,8 +12,7 @@
         </template>
       </div>
     </div>
-    <MyTunes></MyTunes>
-  </div>
+    </div>
 </template>
 
 <script>

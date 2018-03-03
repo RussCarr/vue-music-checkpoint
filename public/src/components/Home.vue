@@ -13,16 +13,17 @@
               <form @submit.prevent="getArtist">
                 <input type="text" v-model="artist" placeholder="Artist Name">
                 <button type="submit">get Music</button>
-                <button @click="getMyCollection">get Collection</button>
-              </form>
+                <!-- <div id="app"> -->
+                  <!-- </div> -->
+                  <!-- <button @click="getMyCollection"></button> -->
+                </form>
+                <button type="button" @click="showModal">get Collection</button>
+                <my-tunes v-show="isModalVisible" @close="closeModal" />
             </nav>
-            <div id="app">
-                <button type="button" class="btn" @click="showModal">Open Modal!</button>
-                <modal v-show="isModalVisible" @close="closeModal"/>
-              </div>
+
           </div>
         </div>
-      
+
       </div>
       <div class="row ">
         <div class="col-6-12 section">
@@ -40,7 +41,7 @@
   // import Itunes from './Itunes.vue'
   import MusicResults from './MusicResults'
   import Bottom from './Bottom'
-  import modal from './modal'
+  import MyTunes from './MyTunes'
   export default {
     name: 'Home',
     data() {
@@ -54,7 +55,7 @@
       // MyTunes,
       MusicResults,
       Bottom,
-      modal,
+      MyTunes
     },
     computed: {
       music() {
@@ -71,10 +72,10 @@
       getArtist() {
         this.$store.dispatch('getMusicByArtist', this.artist)
       },
-        getMyCollection() {
-      this.$store.dispatch('getMyTunes')
-    }
-  },
+      getMyCollection() {
+        this.$store.dispatch('getMyTunes')
+      }
+    },
   }
 </script>
 

@@ -1,11 +1,22 @@
-<script>
+<!-- <script>
   export default {
     name: 'modal',
+
+    mounted: function () {
+      this.$store.dispatch('getMyTunes')
+    },
+
     methods: {
       close() {
         this.$emit('close');
-      },
+      }
     },
+    computed: {
+      tracks() {
+        console.log('here')
+        return this.$store.state.myTunes
+      },
+    }
   };
 </script>
 <template>
@@ -14,7 +25,7 @@
       <div class="modal" role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDescription">
         <header class="modal-header" id="modalTitle">
           <slot name="header">
-            This is the default tile!
+            My Playlist
 
             <button type="button" class="btn-close" @click="close" aria-label="Close modal">
               x
@@ -23,7 +34,7 @@
         </header>
         <section class="modal-body" id="modalDescription">
           <slot name="body">
-            I'm the default body!
+            <p v-for="track in tracks">{{track.name}}</p>
           </slot>
         </section>
         <footer class="modal-footer">
@@ -111,4 +122,4 @@
     border: 1px solid #4AAE9B;
     border-radius: 2px;
   }
-</style>
+</style> -->
