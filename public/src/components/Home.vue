@@ -13,7 +13,7 @@
               <form @submit.prevent="getArtist">
                 <input type="text" v-model="artist" placeholder="Artist Name">
                 <button type="submit">get Music</button>
-                <button @click="getMyCollection(myTunes)">get Collection</button>
+                <button @click="getMyCollection">get Collection</button>
               </form>
             </nav>
           </div>
@@ -30,7 +30,7 @@
 </template>
 
 <script>
- 
+
   // import Itunes from './Itunes.vue'
   import MusicResults from './MusicResults'
   import Bottom from './Bottom'
@@ -55,11 +55,11 @@
     methods: {
       getArtist() {
         this.$store.dispatch('getMusicByArtist', this.artist)
-      }
-    },
-    getMyCollection() {
-      this.$store.dispatch('getMyTunes',myTunes)
+      },
+        getMyCollection() {
+      this.$store.dispatch('getMyTunes')
     }
+  },
   }
 </script>
 

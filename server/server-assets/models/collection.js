@@ -9,6 +9,7 @@ var schema = new Schema({
   artistName:{ type: String, required: true },
   artistId:{ type: String, required: true },
   collectionName:{ type: String, required: true },
+  playlistNumber: {type: Number, required: true},
   creatorId: { type: ObjectId, ref: "User" }
 });
 
