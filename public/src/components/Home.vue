@@ -16,8 +16,13 @@
                 <button @click="getMyCollection">get Collection</button>
               </form>
             </nav>
+            <div id="app">
+                <button type="button" class="btn" @click="showModal">Open Modal!</button>
+                <modal v-show="isModalVisible" @close="closeModal"/>
+              </div>
           </div>
         </div>
+      
       </div>
       <div class="row ">
         <div class="col-6-12 section">
@@ -26,6 +31,7 @@
       </div>
       <Bottom></Bottom>
     </div>
+
   </div>
 </template>
 
@@ -34,18 +40,21 @@
   // import Itunes from './Itunes.vue'
   import MusicResults from './MusicResults'
   import Bottom from './Bottom'
+  import modal from './modal'
   export default {
     name: 'Home',
     data() {
       return {
-        artist: ''
+        artist: '',
+        isModalVisible: false,
       }
     },
     components: {
       // Itunes,
       // MyTunes,
       MusicResults,
-      Bottom
+      Bottom,
+      modal,
     },
     computed: {
       music() {
@@ -53,6 +62,12 @@
       }
     },
     methods: {
+      showModal() {
+        this.isModalVisible = true;
+      },
+      closeModal() {
+        this.isModalVisible = false;
+      },
       getArtist() {
         this.$store.dispatch('getMusicByArtist', this.artist)
       },
