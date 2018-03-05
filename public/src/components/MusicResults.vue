@@ -1,16 +1,36 @@
 <template>
   <div class="musicResults">
-    <div class="col-sm-6">
-      <div class="col-sm-4" v-for='artist in artists'>
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-4" v-for='artist in artists'>
 
-        <template class='m-1'>
-          <img :src='artist.artworkUrl30'>
-          <p>{{artist.artistName}}</p>
-          <p>{{artist.trackName}}</p>
-          <p>Album: {{artist.collectionName}}</p>
-          <p>Price $ {{artist.collectionPrice}}</p>
-          <button @click="addTrack(artist)">add to Collection</button>
-        </template>
+          <template class='m-1'>
+            
+            <div class="card text-center" style="width: 18rem;">
+              <img class="card-img-top" :src='artist.artworkUrl100' alt="Picture of ${artist}">
+              <div class="card-body">
+                <h5 class="card-title">{{artist.artistName}}</h5>
+                <p class="card-subtitle mb-2 text-muted">{{artist.trackName}}</p>
+                <p class="card-text">
+                  <span class="threeLines">Album: {{artist.collectionName}}</span>
+                </p>
+                <p class="card-text">Price $ {{artist.collectionPrice}}</p>
+                <audio controls>
+                  <source :src='artist.previewUrl' type="audio/mpeg "> Your browser does not support HTML5 video.
+                  </audio>
+                  <button @click="addTrack(artist)">add to Collection</button>
+                <div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- <img :src='artist.artworkUrl30'>
+              <p>{{artist.artistName}}</p>
+              <p>{{artist.trackName}}</p>
+              <p>Album: {{artist.collectionName}}</p>
+              <p>Price $ {{artist.collectionPrice}}</p> -->
+            </template>
+          </div>
 
       </div>
     </div>

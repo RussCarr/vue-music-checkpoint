@@ -12,8 +12,8 @@ var schema = new Schema({
   collectionId: { type: Number, required: true },
   collectionName: { type: String, required: true },
   trackNumber: { type: Number, required: true },
-  artworkUrl30: { type: String, required: true },
-  previewUrl: {type: String, required: true},
+  artworkUrl100: { type: String, required: true },
+  previewUrl: { type: String, required: true },
   // songId: {type: Number, required: true}
 });
 

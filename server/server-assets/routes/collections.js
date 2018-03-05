@@ -41,4 +41,24 @@ router.delete('/api/users/:id/collection/:id', (request, response, next) => {
     .catch(next);
 });
 
+//edit a song
+router.put('/api/users/:id/collection/:id', (request, response, next) => {
+  Collection.findByIdAndUpdate(request.params.id, request.body,)
+    .then(collection => {
+      return response.send('collection edited');
+      // 
+    })
+    .catch(next);
+});
+
+//move a song
+router.put('/api/users/:id/collection/:id', (request, response, next) => {
+  Collection.findByIdAndUpdate(request.params.id, request.body,)
+    .then(collection => {
+      return response.send('collection edited');
+      // 
+    })
+    .catch(next);
+});
+
 module.exports = { router };

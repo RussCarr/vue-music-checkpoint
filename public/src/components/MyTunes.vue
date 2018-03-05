@@ -5,7 +5,7 @@
                 <header class="modal-header" id="modalTitle">
                     <slot name="header">{{user.name}} My Playlist
                         <button type="button" class="btn-close" @click="close" aria-label="Close modal">x</button>
-                        <button type="button" @click="getMyCollection">Open playlist</button>
+                        <button type="button" @click="getMyCollection">Get My playlist</button>
                         <button type="button" @click="getUser">Sign In</button>
                     </slot>
                 </header>
@@ -15,31 +15,29 @@
                             <!-- <source src="horse.ogg" type="audio/ogg"> -->
                             <!-- Your browser does not support the audio element. -->
                         </audio>
-                        <!-- <h6 class="ml-5">
-                            <span class="playlist-cats">Song</span class="playlist-cats">
-                            <span class="playlist-cats">Artist</span>
-                            <span class="playlist-cats">Album</span>
-                        </h6> -->
                         <hr>
-                        <div class="row song-info" v-for="track in tracks">
-                            <div class="col-3">
-                                <img :src='track.artworkUrl30'>
-                                <div class="row">
-                                    
+                        <div class="card-playlist">
+                            <ol>
+
+                                <li class="row song-info track-info" v-for="track in tracks">
                                     <div class="col move-tracks">
-                                        <button class="" @click="">up</button>
-                                        <button class="" @click='deleteTrack(track._id)'>delete</button>
-                                        <button class="" @click="">down</button>
+                                        <button class="btn" @click="moveTrackPositionUp">up</button>
+                                        <button class="btn" @click="moveTrackPositionDown">down</button>
+                                        <button type="buttom" class="" @click='deleteTrack(track._id)'>delete</button>
                                     </div>
-                                </div>
-                                <hr>
-                            </div>
-                            <div class="col-9">
-                                <p class="song-position ml-4">{{track.trackName}}</p>
-                                <p class="song-position ml-4">{{track.artistName}}</p>
-                                <p class="song-position ml-4">{{track.collectionName}}</p>
-                            </div>
+                                    <div class="col">
+                                        <img :src='track.artworkUrl100'>
+                                    </div>
+                                    <div class="col song-info">
+                                        <p class="song-position ">{{track.trackName}}</p>
+                                        <p class="song-position ">{{track.artistName}}</p>
+                                        <p class="song-position ">{{track.collectionName}}</p>
+                                    </div>
+                                    <hr>
+                                </li>
+                            </ol>
                         </div>
+
 
                     </slot>
                 </section>
@@ -62,13 +60,12 @@
                 // songId: '',
                 // userId: '',
                 // userName: '',
-                myTunes: {}
+                // myTunes: {}
             }
         },
-        mounted: {
-
-        },
-
+        // mounted: function () {
+        //     this.$store.dispatch('getMyTunes')
+        // },
         methods: {
             close() {
                 this.$emit('close');
@@ -77,26 +74,22 @@
                 console.log('getUserInfo')
                 this.$store.dispatch('getUserInfo')
                 console.log('getUserInfo2')
-                
-                console.log('getUserInfo3',user)
-                
+
+                console.log('getUserInfo3', user)
+
             },
             getMyCollection() {
                 var userId = '5a9b62e3ec0e2a0f3404fdee'
                 this.$store.dispatch('getMyTunes', userId)
             },
-            moveTrackPositionUp(arr, upIndex) {
-                var element = arr.indexOf[upIndex];
-                arr.splice(fromIndex, 1);
-                arr.splice(toIndex, 0, element);
+            moveTrackPositionUp(trackId) {
+                this.$store.dispatch('removeTrack', 0)
             },
-            moveTrackPositionDown(arr, downIndex) {
-                var element = arr[fromIndex];
-                arr.splice(fromIndex, 1);
-                arr.splice(toIndex, 0, element);
+            moveTrackPositionDown(trackId) {
+                this.$store.dispatch('removeTrack', 1)
             },
-            deleteTrack(trackId){
-                this.$store.dispatch('removeTrack',trackId)
+            deleteTrack(trackId) {
+                this.$store.dispatch('removeTrack', trackId)
             }
         },
 
@@ -145,6 +138,24 @@
         align-self: center;
         flex-direction: column;
         width: 350px;
+    }
+
+    .card-playlist {
+        padding-bottom: 35px;
+        /* position: relative; */
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        /* background-color: #fff; */
+        background-clip: border-box;
+        border-radius: .25rem;
+    }
+
+    .track-info {
+        padding: 10px;
+        border: 1px solid rgb(255, 255, 255);
+        margin-right: 15px;
     }
 
     .modal-header,
@@ -213,8 +224,11 @@
     } */
 
     .move-tracks {
+        margin-top: 30px;
+        padding-bottom: 60px;
         display: flex;
         flex-direction: row;
+        /* flex-direction: column; */
     }
 
     /* .song-info {

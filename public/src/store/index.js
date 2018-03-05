@@ -41,7 +41,6 @@ var store = new vuex.Store({
     setMyTunes(state, payload) {
       state.myTunes = payload
     },
-    //requesting data from database
     setUser(state, payload) {
       console.log("payload", payload)
       state.user = payload
@@ -77,7 +76,6 @@ var store = new vuex.Store({
       console.log('getMyTunes1', payload)
       api.get(`users/${store.state.user.id}/collection`)
         .then(res => {
-          console.log('getMyTunes2', res.data)
           commit('setMyCollection', res.data)
         })
         .catch(err => {
@@ -97,9 +95,9 @@ var store = new vuex.Store({
     //     });
     // },
     addToMyCollection({ commit, dispatch }, payload) {
-      api.post(`users/${store.state.user.id}/collection`, payload)
+     api.post(`users/${store.state.user.id}/collection`, payload)
         .then(response => {
-          console.log('me',response.data)
+          console.log('me', response.data)
           commit('setMyTunes', response.data)
         })
         .catch(err => {
@@ -117,7 +115,14 @@ var store = new vuex.Store({
         })
     },
     promoteTrack({ commit, dispatch }, track) {
-      //this should increase the position / upvotes and downvotes on the track
+      console.log('promote', track)
+      api.put(`users/${store.state.user.id}/collection/${track}`)
+        .then(res => {
+          commit('addLikes', res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     demoteTrack({ commit, dispatch }, track) {
       //this should decrease the position / upvotes and downvotes on the track

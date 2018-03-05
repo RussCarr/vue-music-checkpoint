@@ -74,6 +74,7 @@
         this.$store.dispatch('getMusicByArtist', this.artist)
       },
       getMyCollection() {
+        debugger
         this.$store.dispatch('getMyTunes', this.userId)
       },
     }
@@ -147,7 +148,7 @@
   }
 
   .card {
-    margin: 0;
+    margin-left: 10px;
     width: 21rem !important;
   }
 
@@ -161,7 +162,11 @@
   }
 
   img {
+    display: flex;
     height: 100px;
+    width: 100px !important;
+    justify-content: center;
+    align-self: center;
   }
 
   .col-sm-4 {
