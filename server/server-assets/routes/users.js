@@ -1,5 +1,7 @@
 var router = require('express').Router();
 var User = require('../models/user');
+var Collection = require('../models/collection');
+
 
 
 //get a user
@@ -14,7 +16,8 @@ router.get('/api/users/:id', (request, response, next) => {
     .catch(next);
 });
 
-//creat a user
+//create a user
+console.log('create a user')
 router.post('/api/users', (request, response, next) => {
   User.create(request.body)
     .then(users => {

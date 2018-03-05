@@ -4,13 +4,17 @@ var ObjectId = mongoose.SchemaTypes.ObjectId;
 var schemaName = "Collection";
 
 var schema = new Schema({
-  trackId:{ type: String, required: true },
-  trackName:{ type: String, required: true },
-  artistName:{ type: String, required: true },
-  artistId:{ type: String, required: true },
-  collectionName:{ type: String, required: true },
-  playlistNumber: {type: Number, required: true},
-  creatorId: { type: ObjectId, ref: "User" }
+  // creatorId: { type: ObjectId, ref: "User" },
+  artistId: { type: Number, required: true },
+  artistName: { type: String, required: true },
+  trackId: { type: Number, required: true },
+  trackName: { type: String, required: true },
+  collectionId: { type: Number, required: true },
+  collectionName: { type: String, required: true },
+  playlistNumber: { type: Number, required: true },
+  artworkUrl30: { type: String, required: true },
+  previewUrl: {type: String, required: true},
+  songId: {type: Number, required: true}
 });
 
 module.exports = mongoose.model(schemaName, schema);

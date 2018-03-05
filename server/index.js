@@ -3,7 +3,8 @@ var bodyParser = require('body-parser')
 var cors = require('cors')
 
 require('./server-assets/db/mlab-config');
-
+var collectionRoutes = require("./server-assets/routes/collections");
+var userRoutes = require("./server-assets/routes/users");
 
 //Server Setup
 
@@ -12,8 +13,10 @@ let port = 3000;
 server.use(cors());
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
-//router server setups
 
+//router server setups
+server.use(collectionRoutes.router);
+server.use(userRoutes.router);
 
 server.get('*', (request, response, next) => {
   console.log('I am being requested')

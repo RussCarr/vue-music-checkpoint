@@ -14,11 +14,11 @@
                 <input type="text" v-model="artist" placeholder="Artist Name">
                 <button type="submit">get Music</button>
                 <!-- <div id="app"> -->
-                  <!-- </div> -->
-                  <!-- <button @click="getMyCollection"></button> -->
-                </form>
-                <button type="button" @click="showModal">get Collection</button>
-                <my-tunes v-show="isModalVisible" @close="closeModal" />
+                <!-- </div> -->
+                <!-- <button @click="getMyCollection"></button> -->
+              </form>
+              <button type="button" @click="showModal">Open playlist</button>
+              <my-tunes v-show="isModalVisible" @close="closeModal" />
             </nav>
 
           </div>
@@ -60,7 +60,8 @@
     computed: {
       music() {
         return this.$store.state.setResults
-      }
+      },
+      
     },
     methods: {
       showModal() {
@@ -73,9 +74,9 @@
         this.$store.dispatch('getMusicByArtist', this.artist)
       },
       getMyCollection() {
-        this.$store.dispatch('getMyTunes')
-      }
-    },
+        this.$store.dispatch('getMyTunes', this.userId)
+      },
+    }
   }
 </script>
 
