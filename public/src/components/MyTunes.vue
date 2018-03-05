@@ -21,7 +21,7 @@
                             <span class="playlist-cats">Album</span>
                         </h6> -->
                         <hr>
-                        <div class="row song-info" v-for="track in tracks":key="track.songId">
+                        <div class="row song-info" v-for="track in tracks">
                             <div class="col-3">
                                 <img :src='track.artworkUrl30'>
                                 <div class="row">
@@ -59,7 +59,7 @@
             return {
                 artist: '',
                 isModalVisible: false,
-                songId: '',
+                // songId: '',
                 // userId: '',
                 // userName: '',
                 myTunes: {}

@@ -11,10 +11,10 @@ var schema = new Schema({
   trackName: { type: String, required: true },
   collectionId: { type: Number, required: true },
   collectionName: { type: String, required: true },
-  playlistNumber: { type: Number, required: true },
+  trackNumber: { type: Number, required: true },
   artworkUrl30: { type: String, required: true },
   previewUrl: {type: String, required: true},
-  songId: {type: Number, required: true}
+  // songId: {type: Number, required: true}
 });
 
 module.exports = mongoose.model(schemaName, schema);

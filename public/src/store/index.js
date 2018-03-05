@@ -96,10 +96,10 @@ var store = new vuex.Store({
     //       console.log(err);
     //     });
     // },
-    addToMyCollection({ commit, dispatch }) {
-      // debugger
-      api.post(`users/${store.state.user.id}/collection`)
+    addToMyCollection({ commit, dispatch }, payload) {
+      api.post(`users/${store.state.user.id}/collection`, payload)
         .then(response => {
+          console.log('me',response.data)
           commit('setMyTunes', response.data)
         })
         .catch(err => {
@@ -110,12 +110,7 @@ var store = new vuex.Store({
     removeTrack({ commit, dispatch }, track) {
       api.delete(`users/${store.state.user.id}/collection/${track}`)
         .then(() => {
-          api.get(`users/${store.state.user.id}/collection`)
-            .then(res => {
-              console.log('getMyTunes2', res.data)
-              commit('setMyCollection', res.data)
-            })
-          console.log('deleted the track')
+          dispatch('getMyTunes')
         })
         .catch(err => {
           console.log(err)
