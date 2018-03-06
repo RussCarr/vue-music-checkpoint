@@ -44,7 +44,14 @@ var store = new vuex.Store({
     setUser(state, payload) {
       console.log("payload", payload)
       state.user = payload
-    }
+    },
+    addLikes(state, payload) {
+      payload = state.myTunes.find(track => track._id == payload._id)
+      // state.posts = payload
+    },
+    addDislikes(state, payload) {
+      payload = state.myTunes.find(track => track._id == payload._id)
+    },
   },
   actions: {
     getMusicByArtist({ commit, dispatch }, artist) {
@@ -95,7 +102,7 @@ var store = new vuex.Store({
     //     });
     // },
     addToMyCollection({ commit, dispatch }, payload) {
-     api.post(`users/${store.state.user.id}/collection`, payload)
+      api.post(`users/${store.state.user.id}/collection`, payload)
         .then(response => {
           console.log('me', response.data)
           commit('setMyTunes', response.data)
@@ -115,8 +122,8 @@ var store = new vuex.Store({
         })
     },
     promoteTrack({ commit, dispatch }, track) {
-      console.log('promote', track)
-      api.put(`users/${store.state.user.id}/collection/${track}`)
+      console.log('promote', track._id)
+      api.put(`users/${store.state.user.id}/collection/${track._id}`, { like: track.like++ })
         .then(res => {
           commit('addLikes', res.data)
         })
@@ -126,8 +133,15 @@ var store = new vuex.Store({
     },
     demoteTrack({ commit, dispatch }, track) {
       //this should decrease the position / upvotes and downvotes on the track
-    }
-
+      console.log('demote', track._id)
+      api.put(`users/${store.state.user.id}/collection/${track._id}`, { like: track.like-- })
+        .then(res => {
+          commit('addDislikes', res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
   }
 })
 

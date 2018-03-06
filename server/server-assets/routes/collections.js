@@ -19,6 +19,14 @@ router.get('/api/users/:id/collection', (request, response, next) => {
     .catch(next);
 });
 
+//get one song by user
+router.get('/api/users/:id/collection/:id', (request, response, next) => {
+  Collection.find(request.query)
+    .then(collection => {
+      response.send(collection);
+    })
+    .catch(next);
+});
 
 //add a song
 router.post('/api/users/:id/collection', (request, response, next) => {
@@ -51,14 +59,5 @@ router.put('/api/users/:id/collection/:id', (request, response, next) => {
     .catch(next);
 });
 
-//move a song
-router.put('/api/users/:id/collection/:id', (request, response, next) => {
-  Collection.findByIdAndUpdate(request.params.id, request.body,)
-    .then(collection => {
-      return response.send('collection edited');
-      // 
-    })
-    .catch(next);
-});
 
 module.exports = { router };

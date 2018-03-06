@@ -5,8 +5,8 @@
                 <header class="modal-header" id="modalTitle">
                     <slot name="header">{{user.name}} My Playlist
                         <button type="button" class="btn-close" @click="close" aria-label="Close modal">x</button>
-                        <button type="button" @click="getMyCollection">Get My playlist</button>
-                        <button type="button" @click="getUser">Sign In</button>
+                        <!-- <button type="button" @click="getMyCollection">Get My playlist</button> -->
+                        <!-- <button type="button" @click="getUser">Sign In</button> -->
                     </slot>
                 </header>
                 <section class="modal-body" id="modalDescription">
@@ -21,8 +21,8 @@
 
                                 <li class="row song-info track-info" v-for="track in tracks">
                                     <div class="col move-tracks">
-                                        <button class="btn" @click="moveTrackPositionUp">up</button>
-                                        <button class="btn" @click="moveTrackPositionDown">down</button>
+                                        <button class="btn" @click="moveTrackPositionUp(track)">up {{track.like}}</button>
+                                        <button class="btn" @click="moveTrackPositionDown(track)">down</button>
                                         <button type="buttom" class="" @click='deleteTrack(track._id)'>delete</button>
                                     </div>
                                     <div class="col">
@@ -51,6 +51,7 @@
     </transition>
 </template>
 <script>
+    import lodash from 'lodash'
     export default {
         name: 'my-tunes',
         data() {
@@ -60,12 +61,10 @@
                 // songId: '',
                 // userId: '',
                 // userName: '',
-                // myTunes: {}
+                myTunes: []
             }
         },
-        // mounted: function () {
-        //     this.$store.dispatch('getMyTunes')
-        // },
+
         methods: {
             close() {
                 this.$emit('close');
@@ -82,11 +81,11 @@
                 var userId = '5a9b62e3ec0e2a0f3404fdee'
                 this.$store.dispatch('getMyTunes', userId)
             },
-            moveTrackPositionUp(trackId) {
-                this.$store.dispatch('removeTrack', 0)
+            moveTrackPositionUp(track) {
+                this.$store.dispatch('promoteTrack', track)
             },
-            moveTrackPositionDown(trackId) {
-                this.$store.dispatch('removeTrack', 1)
+            moveTrackPositionDown(track) {
+                this.$store.dispatch('demoteTrack', track)
             },
             deleteTrack(trackId) {
                 this.$store.dispatch('removeTrack', trackId)
@@ -96,13 +95,16 @@
         computed: {
             tracks() {
                 console.log('here')
-                return this.$store.state.myTunes
+                var playlist = _.orderBy(this.$store.state.myTunes, ['like', 'dislike'], ['asc', 'desc'])
+                return playlist.reverse()
             },
             user() {
                 console.log('yeay')
                 return this.$store.state.user
-            }
-        }
+            },
+            
+        },
+
 
     };
 </script>
@@ -114,7 +116,7 @@
 
     .modal-fade-enter-active,
     .modal-fade-leave-active {
-        transition: opacity .5s ease;
+        transition: opacity .5 ease;
     }
 
     .modal-backdrop {

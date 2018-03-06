@@ -17,7 +17,7 @@
                 <!-- </div> -->
                 <!-- <button @click="getMyCollection"></button> -->
               </form>
-              <button type="button" @click="showModal">Open playlist</button>
+              <button type="button" @click="showModal" @load="getMyCollection">Open playlist</button>
               <my-tunes v-show="isModalVisible" @close="closeModal" />
             </nav>
 
@@ -66,6 +66,7 @@
     methods: {
       showModal() {
         this.isModalVisible = true;
+        this.$store.dispatch('getMyTunes', this.userId)
       },
       closeModal() {
         this.isModalVisible = false;
@@ -74,8 +75,7 @@
         this.$store.dispatch('getMusicByArtist', this.artist)
       },
       getMyCollection() {
-        debugger
-        this.$store.dispatch('getMyTunes', this.userId)
+        
       },
     }
   }
